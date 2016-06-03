@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="menuItems">
+        <item>Bookings</item>
+        <item>History</item>
+        <item>My Details</item>
+        <item>About Us</item>
+        <item>LogOut</item>
+    </array>
+</resources>
