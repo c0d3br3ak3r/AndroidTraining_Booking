@@ -99,6 +99,10 @@ public class MenuFragment extends ListFragment {
             case "My Details":
                 frag = new UserDetailsFragment();
                 break;
+
+            case "Bookings":
+                frag = new BookingFragment();
+                break;
         }
 
         if (mCallback != null && frag!=null) {
