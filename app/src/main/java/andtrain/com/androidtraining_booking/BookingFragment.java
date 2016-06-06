@@ -96,13 +96,6 @@ public class BookingFragment extends Fragment {
         }
     }
 
-    public void initializeDates() {
-        dates = new String[7];
-        for(int i=0;i<7;i++) {
-            dates[i] = "Day " + (i+1);
-        }
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -119,8 +112,10 @@ public class BookingFragment extends Fragment {
 
 
         final TextView txview = (TextView)getActivity().findViewById(R.id.textView2);
-        txview.setText("Pick a Date");
         final Calendar mycal = Calendar.getInstance();
+        final SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd ''yy", Locale.US);
+        txview.setText(sdf.format(mycal.getTime()));
+
         final DatePickerDialog.OnDateSetListener date_set_callback = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -128,8 +123,6 @@ public class BookingFragment extends Fragment {
                 mycal.set(Calendar.YEAR, year);
                 mycal.set(Calendar.MONTH, monthOfYear);
                 mycal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
                 txview.setText(sdf.format(mycal.getTime()));
 
             }

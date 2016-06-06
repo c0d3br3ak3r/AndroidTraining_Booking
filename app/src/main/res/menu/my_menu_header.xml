@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="andtrain.com.androidtraining_booking.MainActivity">
+
+    <item android:title="Bookings"/>
+    <item android:title="History"/>
+    <item android:title="My Details"/>
+    <item android:title="About Us"/>
+    <item android:title="LogOut"/>
+</menu>
