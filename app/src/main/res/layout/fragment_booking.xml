@@ -3,27 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="andtrain.com.androidtraining_booking.BookingFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Date"
-            android:id="@+id/textView2"
-            android:layout_gravity="center"/>
-
-        <GridView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/myGridView"
-            android:numColumns="2">
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Date"
+                    android:id="@+id/textView2"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Done"
+                    android:layout_gravity="right"/>
+            </LinearLayout>
 
-        </GridView>
 
-    </LinearLayout>
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/myGridView"
+                android:numColumns="4"
+                android:verticalSpacing="10dp"
+                android:layout_margin="5dp"
+                android:scrollbars="vertical"
+                >
+                <!--android:numColumns="7">-->
+                <!--android:numColumns="auto_fit"-->
+                <!--android:columnWidth="80dp"-->
+                <!--android:horizontalSpacing="10dp"-->
+                <!--android:gravity="center"-->
+                <!--android:stretchMode="spacingWidthUniform"-->
+
+            </GridView>
+
+        </LinearLayout>
 
 </FrameLayout>

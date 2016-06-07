@@ -86,15 +86,16 @@ public class BookingFragment extends Fragment {
     }
 
 
-    String[] slots;
-    String[] dates;
-    public void initializeSlots() {
+//    String[] slots;
+//    String[] dates;
+
+    /*public void initializeSlots() {
         slots = new String[48];
         for(int i=0,j=0;i<24;i++,j=j+2) {
             slots[j] = i + ":00 - " + i + ":30";
             slots[j+1] = i + ":30 - " + (i+1) + ":00";
         }
-    }
+    }*/
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -105,10 +106,10 @@ public class BookingFragment extends Fragment {
 //        ArrayAdapter<String> arr_dates_adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,dates);
 //        date_grid_view.setAdapter(arr_dates_adapter);
 
-        GridView grid_view = (GridView) getActivity().findViewById(R.id.myGridView);
-        initializeSlots();
-        ArrayAdapter<String> arr_adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,slots);
-        grid_view.setAdapter(arr_adapter);
+        final GridView grid_view = (GridView) getActivity().findViewById(R.id.myGridView);
+//        initializeSlots();
+//        ArrayAdapter<String> arr_adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,slots);
+        grid_view.setAdapter(new CheckboxAdapter(getActivity()));
 
 
         final TextView txview = (TextView)getActivity().findViewById(R.id.textView2);
@@ -124,6 +125,9 @@ public class BookingFragment extends Fragment {
                 mycal.set(Calendar.MONTH, monthOfYear);
                 mycal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 txview.setText(sdf.format(mycal.getTime()));
+
+                //reset grid ?
+                grid_view.setAdapter(new CheckboxAdapter(getActivity()));
 
             }
         };

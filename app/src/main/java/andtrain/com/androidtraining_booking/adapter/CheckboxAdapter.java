@@ -6,26 +6,32 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 
+import andtrain.com.androidtraining_booking.R;
+
 /**
  * Created by ararmoha on 6/4/2016.
  */
 public class CheckboxAdapter extends BaseAdapter {
     private Context mCtx;
-    public CheckBox[] chkbox_matrix = new CheckBox[7];
+    public CheckBox[] slots;
 
-    //constructor
+    private void initializeSlots() {
+        slots = new CheckBox[48];
+    }
     public CheckboxAdapter(Context ctx) {
+        initializeSlots();
         mCtx = ctx;
     }
 
     @Override
     public int getCount() {
-        return chkbox_matrix.length;
+        return slots.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        //return null;
+        return slots[position];
     }
 
     @Override
@@ -35,7 +41,25 @@ public class CheckboxAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CheckBox chkbox = new CheckBox(mCtx);
+        CheckBox chkbox;
+        if(convertView==null) {
+            chkbox = new CheckBox(mCtx);
+            chkbox.setButtonDrawable(R.drawable.customcheckbox);
+            String txt = "" + ((position%24))/2;
+            if(position%2==0) {
+                txt += ":00 ";
+            } else {
+                txt += ":30 ";
+            }
+            if(position>24) {
+                txt += "PM";
+            } else {
+                txt += "AM";
+            }
+            chkbox.setText(txt);
+        } else {
+            chkbox = (CheckBox) convertView;
+        }
         return chkbox;
     }
 }

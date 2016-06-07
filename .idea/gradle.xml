@@ -8,8 +8,8 @@
         <option name="gradleJvm" value="1.7" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$USER_HOME$/My_Git_Repositories/AndroidTraining_Booking" />
+            <option value="$USER_HOME$/My_Git_Repositories/AndroidTraining_Booking/app" />
           </set>
         </option>
       </GradleProjectSettings>
