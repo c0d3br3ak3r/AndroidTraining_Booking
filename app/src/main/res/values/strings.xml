@@ -6,4 +6,5 @@
         Contact us for any issues at
     </string>
     <string name="phoneNumber">(+91) XXX-XXX-XXXX</string>
+    <string name="title_activity_result">ResultActivity</string>
 </resources>

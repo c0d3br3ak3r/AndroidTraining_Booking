@@ -1,4 +1,4 @@
-package andtrain.com.androidtraining_booking;
+package andtrain.com.androidtraining_booking.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -18,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import andtrain.com.androidtraining_booking.R;
 import andtrain.com.androidtraining_booking.adapter.CheckboxAdapter;
 
 

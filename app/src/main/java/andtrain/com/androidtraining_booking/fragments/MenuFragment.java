@@ -1,9 +1,10 @@
-package andtrain.com.androidtraining_booking;
+package andtrain.com.androidtraining_booking.fragments;
 
 
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import andtrain.com.androidtraining_booking.R;
 
 
 /**
@@ -102,6 +106,14 @@ public class MenuFragment extends ListFragment {
 
             case "Bookings":
                 frag = new BookingFragment();
+                break;
+
+            case "History":
+                Toast.makeText(getActivity(), "History Clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case "LogOut":
+                Intent intent = new Intent("andtrain.com.androidtraining_booking.activities.LoginActivity");
+                startActivity(intent);
                 break;
         }
 
