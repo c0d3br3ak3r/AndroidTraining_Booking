@@ -34,6 +34,7 @@ public class ResultActivity extends Activity {
             if("true".equals((fromIntent.getStringExtra("valid")))) {
                 flag = 1;
                 Intent intent = new Intent("andtrain.com.androidtraining_booking.activities.UserLandingHomePageActivity"); //Start landing home page activity
+                intent.putExtra("username",fromIntent.getStringExtra("username"));
                 startActivity(intent);
             } else {
                 resString = "Your Credentials are invalid. Please try again.";

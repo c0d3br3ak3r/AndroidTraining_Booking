@@ -97,6 +97,7 @@ public class LoginFragment extends Fragment {
                             intent.putExtra("Name", hmap.get("name"));
                             intent.putExtra("Email", hmap.get("email"));
                             intent.putExtra("phno", hmap.get("phno"));
+                            intent.putExtra("username", hmap.get("username"));
                         } else {
                             intent.putExtra("valid","false");
                         }

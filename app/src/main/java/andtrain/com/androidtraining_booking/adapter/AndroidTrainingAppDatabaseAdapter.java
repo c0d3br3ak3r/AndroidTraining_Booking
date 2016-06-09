@@ -64,6 +64,7 @@ public class AndroidTrainingAppDatabaseAdapter {
             valmap.put("name", name);
             valmap.put("email", email);
             valmap.put("phno", phno);
+            valmap.put("username",username);
             return valmap;
         }
     }

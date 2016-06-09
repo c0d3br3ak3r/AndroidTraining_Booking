@@ -14,10 +14,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Select date : "
+                    android:layout_weight="0"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Date"
                     android:id="@+id/textView2"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
                     android:layout_weight="1"/>
                 <Button
                     android:layout_width="wrap_content"

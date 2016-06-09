@@ -1,12 +1,16 @@
 package andtrain.com.androidtraining_booking.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import andtrain.com.androidtraining_booking.R;
 
@@ -35,6 +39,20 @@ public class UserDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Intent fromIntent = getActivity().getIntent();
+        String username = fromIntent.getStringExtra("username");
+        if(getActivity().findViewById(R.id.userdetails_text) != null) {
+            TextView txtview =  (TextView)getActivity().findViewById(R.id.userdetails_text);
+            txtview.setText(username);
+        } else {
+            System.out.println("Activity not found .... CHeck again!!");
+        }
+
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -56,10 +74,10 @@ public class UserDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
     }
 
     @Override

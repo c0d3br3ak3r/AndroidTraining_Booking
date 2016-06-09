@@ -45,6 +45,11 @@ public class UserLandingHomePageActivity extends FragmentActivity implements Men
     }
 
     @Override
+    public void onBackPressed() {
+        Toast.makeText(this,"Cannot go back. Use menu to navigate.",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         Object frag = null;
