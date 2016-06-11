@@ -2,21 +2,29 @@ package andtrain.com.androidtraining_booking.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import andtrain.com.androidtraining_booking.R;
+import andtrain.com.androidtraining_booking.adapter.AndroidTrainingBookingDBAdapter;
 import andtrain.com.androidtraining_booking.adapter.CheckboxAdapter;
 
 
@@ -81,6 +89,7 @@ public class BookingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root_view = inflater.inflate(R.layout.fragment_booking, container, false);
+        dbAdapter = new AndroidTrainingBookingDBAdapter(root_view.getContext());
         return root_view;
     }
 
@@ -108,35 +117,69 @@ public class BookingFragment extends Fragment {
         final GridView grid_view = (GridView) getActivity().findViewById(R.id.myGridView);
 //        initializeSlots();
 //        ArrayAdapter<String> arr_adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,slots);
-        grid_view.setAdapter(new CheckboxAdapter(getActivity()));
+        //grid_view.setAdapter(new CheckboxAdapter(getActivity()));
 
 
-        final TextView txview = (TextView)getActivity().findViewById(R.id.textView2);
+        final TextView txview = (TextView)getActivity().findViewById(R.id.reservationDate);
         final Calendar mycal = Calendar.getInstance();
         final SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd ''yy", Locale.US);
         txview.setText(sdf.format(mycal.getTime()));
 
+        CheckboxAdapter chkboxadapter_1 = new CheckboxAdapter(getActivity());
+        ArrayList<String> checked_slots_1 = dbAdapter.getReservedSlotList(sdf.format(mycal.getTime()));
+        Set<String> slot_set_1 = new HashSet<>();
+        if(checked_slots_1!=null && !checked_slots_1.isEmpty()) {
+            for (String str : checked_slots_1) {
+                slot_set_1.add(str);
+            }
+            chkboxadapter_1.setCheckedList(slot_set_1);
+        }
+
+        grid_view.setAdapter(chkboxadapter_1);
+
         final DatePickerDialog.OnDateSetListener date_set_callback = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                System.out.println("Date selected is : ");
                 mycal.set(Calendar.YEAR, year);
                 mycal.set(Calendar.MONTH, monthOfYear);
                 mycal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 txview.setText(sdf.format(mycal.getTime()));
 
                 //reset grid ?
-                grid_view.setAdapter(new CheckboxAdapter(getActivity()));
+
+                Set<String> slot_set_2 = new HashSet<>();
+                ArrayList<String> checked_slots_2 = dbAdapter.getReservedSlotList(sdf.format(mycal.getTime()));
+                CheckboxAdapter chkboxadapter = new CheckboxAdapter(getActivity());
+                if(checked_slots_2!=null && !checked_slots_2.isEmpty()) {
+                    for (String str : checked_slots_2) {
+                        slot_set_2.add(str);
+                    }
+                    chkboxadapter.setCheckedList(null);
+                    chkboxadapter.setCheckedList(slot_set_2);
+                }
+                grid_view.setAdapter(chkboxadapter);
+
 
             }
         };
         txview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(),date_set_callback,2016,6,1).show();
+                new DatePickerDialog(getActivity(),date_set_callback,2016,mycal.get(Calendar.MONTH),1).show();
             }
         });
 
+        Button done_btn = (Button)getActivity().findViewById(R.id.doneBtn);
+        done_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date = ((TextView)getActivity().findViewById(R.id.reservationDate)).getText().toString();
+                Intent fromIntent = getActivity().getIntent();
+                String username = fromIntent.getStringExtra("username");
+                Set<String> slots = CheckboxAdapter.getCheckedList();
+                dbAdapter.insertReservedSlot(username, date, slots);
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -146,9 +189,12 @@ public class BookingFragment extends Fragment {
         }
     }
 
+    public static AndroidTrainingBookingDBAdapter dbAdapter;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {

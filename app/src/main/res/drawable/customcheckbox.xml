@@ -2,5 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="false" android:drawable="@drawable/ic_slot_empty" />
     <item android:state_checked="true" android:drawable="@drawable/ic_slot_green" />
+    <item android:state_enabled="false" android:drawable="@drawable/ic_slot_red" />
     <item android:drawable="@drawable/ic_slot_empty" /> <!-- default state -->
 </selector>
