@@ -34,6 +34,15 @@ public class AndroidTrainingAppDatabaseAdapter {
         return db;
     }
 
+    public void updateEntry(String username, String name, String email, String phno) {
+        ContentValues values = new ContentValues();
+        values.put("NAME", name);
+        values.put("EMAIL", email);
+        values.put("PHONENUM", phno);
+        db.update(tablename, values, "USERNAME=?", new String[]{username});
+        System.out.println("Updated details successfully.");
+    }
+
     public void insertEntry(String username, String password, String name, String email, String phno) {
         ContentValues values = new ContentValues();
         values.put("USERNAME",username);
@@ -43,6 +52,19 @@ public class AndroidTrainingAppDatabaseAdapter {
         values.put("PHONENUM", phno);
         db.insert(tablename, null, values);
         System.out.println("Inserted into database successfully.");
+    }
+
+    public HashMap<String,String> getDetails(String username) {
+        Cursor csr = db.query(tablename,null," USERNAME=?", new String[]{username},null,null,null);
+        if(csr.getCount()<1) {
+            return null;
+        }
+        csr.moveToFirst();
+        HashMap<String,String> valmap = new HashMap<>();
+        valmap.put("name",csr.getString(csr.getColumnIndex("NAME")));
+        valmap.put("email",csr.getString(csr.getColumnIndex("EMAIL")));
+        valmap.put("phno",csr.getString(csr.getColumnIndex("PHONENUM")));
+        return valmap;
     }
 
     public HashMap<String,String> getLoginCredentials(String username,String password) {

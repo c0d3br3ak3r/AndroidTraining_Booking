@@ -1,5 +1,6 @@
 package andtrain.com.androidtraining_booking.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,11 +9,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+
 import andtrain.com.androidtraining_booking.R;
+import andtrain.com.androidtraining_booking.adapter.AndroidTrainingAppDatabaseAdapter;
 
 
 /**
@@ -39,19 +46,53 @@ public class UserDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static AndroidTrainingAppDatabaseAdapter dbadapter;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Intent fromIntent = getActivity().getIntent();
-        String username = fromIntent.getStringExtra("username");
-        if(getActivity().findViewById(R.id.userdetails_text) != null) {
-            TextView txtview =  (TextView)getActivity().findViewById(R.id.userdetails_text);
-            txtview.setText(username);
-        } else {
-            System.out.println("Activity not found .... CHeck again!!");
-        }
+        final String username = fromIntent.getStringExtra("username");
+//        if(getActivity().findViewById(R.id.userdetails_text) != null) {
+//            TextView txtview =  (TextView)getActivity().findViewById(R.id.userdetails_text);
+//            txtview.setText(username);
+
+            final EditText editName = (EditText)getActivity().findViewById(R.id.editName);
+            EditText editPhone = (EditText)getActivity().findViewById(R.id.editPhone);
+            EditText editEmail = (EditText)getActivity().findViewById(R.id.editEmail);
+
+            dbadapter.open();
+            HashMap<String,String> details = dbadapter.getDetails(username);
+            dbadapter.close();
+
+            editName.setText(details.get("name"));
+            editPhone.setText(details.get("phno"));
+            editEmail.setText(details.get("email"));
+
+            Button update_btn = (Button) getActivity().findViewById(R.id.updatedetails);
+            update_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    dbadapter.open();
+                    String name = ((EditText)getActivity().findViewById(R.id.editName)).getText().toString();
+                    String email = ((EditText)getActivity().findViewById(R.id.editEmail)).getText().toString();
+                    String phno = ((EditText)getActivity().findViewById(R.id.editPhone)).getText().toString();
+                    dbadapter.updateEntry(username,name,email,phno);
+                    dbadapter.close();
+                    Toast.makeText(getActivity(),"Updated details successful.",Toast.LENGTH_LONG).show();
+                }
+            });
+
+//        } else {
+//            System.out.println("Activity not found .... CHeck again!!");
+//        }
 
     }
+
+    MenuFragment.CommInterface mCallBack;
+
+
 
     /**
      * Use this factory method to create a new instance of
@@ -84,7 +125,9 @@ public class UserDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_details, container, false);
+        View rootview = inflater.inflate(R.layout.fragment_user_details, container, false);
+        dbadapter = new AndroidTrainingAppDatabaseAdapter(rootview.getContext());
+        return rootview;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -97,12 +140,19 @@ public class UserDetailsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mCallBack = (MenuFragment.CommInterface) getActivity();
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallBack = (MenuFragment.CommInterface)getActivity();
     }
 
     @Override

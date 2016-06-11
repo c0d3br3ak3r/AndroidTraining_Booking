@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import andtrain.com.androidtraining_booking.fragments.AboutFragment;
@@ -82,6 +83,24 @@ public class UserLandingHomePageActivity extends FragmentActivity implements Men
     @Override
     public void onFragmentInteraction(Uri uri) {
         //Nothing to do here.
+    }
+
+    public void userHomeClickEvent(View view) {
+        if(findViewById(R.id.contentFragmentContainer) != null) {
+            //popping already added fragments
+            if(getFragmentManager().getBackStackEntryCount() > 0) {
+                System.out.println("BackStack is not null.. Popping elements");
+                getFragmentManager().popBackStackImmediate();
+            } else {
+                getSupportFragmentManager().popBackStackImmediate();
+            }
+
+            MenuFragment menu_frag = new MenuFragment();
+            android.app.FragmentTransaction txn = getFragmentManager().beginTransaction();
+            txn.add(R.id.contentFragmentContainer, menu_frag);
+            txn.addToBackStack("MenuFragment");
+            txn.commit();
+        }
     }
 
     @Override
