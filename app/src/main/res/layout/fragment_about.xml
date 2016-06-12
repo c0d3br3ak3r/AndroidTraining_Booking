@@ -20,11 +20,15 @@
             android:id="@+id/textView"
             android:layout_margin="10dp"
             android:gravity="center" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/phoneNumber"
-            android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/contactNo"
+                android:text="@string/phoneNumber"
+                android:gravity="center"
+                android:drawableLeft="@drawable/ic_phone_icon"
+                android:onClick="callNumber" />
 
     </LinearLayout>
 

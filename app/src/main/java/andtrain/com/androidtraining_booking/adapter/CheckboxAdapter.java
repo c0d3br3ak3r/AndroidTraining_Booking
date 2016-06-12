@@ -60,7 +60,7 @@ public class CheckboxAdapter extends BaseAdapter {
             chkbox = new CheckBox(mCtx);
             chkbox.setButtonDrawable(R.drawable.customcheckbox);
             String txt = "" + ((position%24))/2;
-            if(position==24) {
+            if(position==24 || position==25) {
                 txt = "12";
             }
             if(position%2==0) {

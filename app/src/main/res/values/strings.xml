@@ -3,8 +3,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="aboutUsContent">
         Hello Guys! This is just a sample about us page.
-        Contact us for any issues at
+        Contact us for any queries at
     </string>
-    <string name="phoneNumber">(+91) XXX-XXX-XXXX</string>
+    <string name="phoneNumber">987-654-3210</string>
     <string name="title_activity_result">ResultActivity</string>
 </resources>

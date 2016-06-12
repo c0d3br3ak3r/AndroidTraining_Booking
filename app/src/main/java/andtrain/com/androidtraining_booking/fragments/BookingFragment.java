@@ -10,15 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -94,17 +93,6 @@ public class BookingFragment extends Fragment {
     }
 
 
-//    String[] slots;
-//    String[] dates;
-
-    /*public void initializeSlots() {
-        slots = new String[48];
-        for(int i=0,j=0;i<24;i++,j=j+2) {
-            slots[j] = i + ":00 - " + i + ":30";
-            slots[j+1] = i + ":30 - " + (i+1) + ":00";
-        }
-    }*/
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -125,7 +113,7 @@ public class BookingFragment extends Fragment {
         final SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd ''yy", Locale.US);
         txview.setText(sdf.format(mycal.getTime()));
 
-        CheckboxAdapter chkboxadapter_1 = new CheckboxAdapter(getActivity());
+        final CheckboxAdapter chkboxadapter_1 = new CheckboxAdapter(getActivity());
         ArrayList<String> checked_slots_1 = dbAdapter.getReservedSlotList(sdf.format(mycal.getTime()));
         Set<String> slot_set_1 = new HashSet<>();
         if(checked_slots_1!=null && !checked_slots_1.isEmpty()) {
@@ -144,8 +132,6 @@ public class BookingFragment extends Fragment {
                 mycal.set(Calendar.MONTH, monthOfYear);
                 mycal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 txview.setText(sdf.format(mycal.getTime()));
-
-                //reset grid ?
 
                 Set<String> slot_set_2 = new HashSet<>();
                 ArrayList<String> checked_slots_2 = dbAdapter.getReservedSlotList(sdf.format(mycal.getTime()));
@@ -178,6 +164,21 @@ public class BookingFragment extends Fragment {
                 String username = fromIntent.getStringExtra("username");
                 Set<String> slots = CheckboxAdapter.getCheckedList();
                 dbAdapter.insertReservedSlot(username, date, slots);
+
+                Toast.makeText(getActivity(),"Slots booked successfully",Toast.LENGTH_LONG).show();
+
+                //relaoding the gridView ?
+                Set<String> slot_set_3 = new HashSet<>();
+                ArrayList<String> checked_slots_3 = dbAdapter.getReservedSlotList(sdf.format(mycal.getTime()));
+                CheckboxAdapter chkboxadapter = new CheckboxAdapter(getActivity());
+                if(checked_slots_3!=null && !checked_slots_3.isEmpty()) {
+                    for (String str : checked_slots_3) {
+                        slot_set_3.add(str);
+                    }
+                    chkboxadapter.setCheckedList(null);
+                    chkboxadapter.setCheckedList(slot_set_3);
+                }
+                grid_view.setAdapter(chkboxadapter);
             }
         });
     }
