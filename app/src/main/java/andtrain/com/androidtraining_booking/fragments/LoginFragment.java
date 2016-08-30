@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import andtrain.com.androidtraining_booking.R;
 import andtrain.com.androidtraining_booking.adapter.AndroidTrainingAppDatabaseAdapter;
+import andtrain.com.androidtraining_booking.databases.MyFirebaseAdapter;
 
 
 /**
@@ -89,9 +90,13 @@ public class LoginFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent("andtrain.com.androidtraining_booking.activities.ResultActivity");
                         intent.putExtra("FromPage", "SignInPage");
-                        dbadapter.open();
-                        HashMap<String,String> hmap = dbadapter.getLoginCredentials(((EditText)rootView.findViewById(R.id.editText)).getText().toString(), ((EditText)rootView.findViewById(R.id.editText2)).getText().toString());
-                        dbadapter.close();
+                        String username = ((EditText)rootView.findViewById(R.id.editText)).getText().toString();
+                        String password = ((EditText)rootView.findViewById(R.id.editText2)).getText().toString();
+                        //dbadapter.open();
+                        //HashMap<String,String> hmap = dbadapter.getLoginCredentials(((EditText)rootView.findViewById(R.id.editText)).getText().toString(), ((EditText)rootView.findViewById(R.id.editText2)).getText().toString());
+                        //dbadapter.close();
+                        HashMap<String,String> hmap = null;
+                        hmap = MyFirebaseAdapter.getUserDetails(username,password);
                         if(hmap!=null) {
                             intent.putExtra("valid","true");
                             intent.putExtra("Name", hmap.get("name"));

@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import andtrain.com.androidtraining_booking.R;
 import andtrain.com.androidtraining_booking.adapter.AndroidTrainingAppDatabaseAdapter;
+import andtrain.com.androidtraining_booking.databases.MyFirebaseAdapter;
 
 
 /**
