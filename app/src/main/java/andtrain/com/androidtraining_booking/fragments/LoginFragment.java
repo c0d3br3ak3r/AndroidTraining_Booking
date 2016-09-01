@@ -99,10 +99,10 @@ public class LoginFragment extends Fragment {
                         hmap = MyFirebaseAdapter.getUserDetails(username,password);
                         if(hmap!=null) {
                             intent.putExtra("valid","true");
-                            intent.putExtra("Name", hmap.get("name"));
+                            intent.putExtra("Name", hmap.get("Name"));
                             intent.putExtra("Email", hmap.get("email"));
-                            intent.putExtra("phno", hmap.get("phno"));
-                            intent.putExtra("username", hmap.get("username"));
+                            intent.putExtra("phno", String.valueOf(hmap.get("phno")));
+                            intent.putExtra("username", username);
                         } else {
                             intent.putExtra("valid","false");
                         }
