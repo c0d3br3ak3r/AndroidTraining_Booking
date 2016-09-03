@@ -53,7 +53,7 @@ public class ResultActivity extends Activity {
             TextView txview = new TextView(this);
             txview.setText(resString);
             innerLayout.addView(txview);
-            if ("true".equals((fromIntent.getStringExtra("valid")))) {
+            /*if ("true".equals((fromIntent.getStringExtra("valid")))) {
 
                 String name = fromIntent.getStringExtra("Name");
                 String email = fromIntent.getStringExtra("Email");
@@ -69,7 +69,7 @@ public class ResultActivity extends Activity {
                 innerLayout.addView(phno_widget);
 
 
-            }
+            }*/
 
             layout.addView(innerLayout);
         }

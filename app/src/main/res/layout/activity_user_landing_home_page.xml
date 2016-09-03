@@ -13,9 +13,9 @@
         android:layout_weight="1">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_landing_page_action_tab"
-            android:scaleType="fitXY"/>
+            android:layout_height="match_parent"/>
+            <!--android:background="@drawable/ic_landing_page_action_tab"-->
+            <!--android:scaleType="fitXY"/>-->
     </FrameLayout>
 
 </LinearLayout>
